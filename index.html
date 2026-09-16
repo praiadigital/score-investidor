@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Score do Investidor — pronto para investir no litoral? | Praia Digital</title>
+<meta name="description" content="Avaliação interativa que mede sua prontidão para investir em imóveis de temporada no litoral paulista e indica os próximos passos.">
+<link rel="canonical" href="https://praia.digital/score-investidor/">
+<meta name="robots" content="index, follow">
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif}
+body{margin:0;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto;padding:40px 20px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px;margin-top:20px}
+.opt{display:block;width:100%;text-align:left;background:#0f172a;border:1px solid #334155;color:#e2e8f0;padding:14px 16px;border-radius:12px;margin-top:10px;font-size:15px;cursor:pointer}
+.opt:hover{border-color:#38bdf8}
+.result{display:none;border-radius:16px;padding:24px;margin-top:20px;border:1px solid #f59e0b;background:#1c1917}
+.gauge{font-size:48px;font-weight:800}
+.btn{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:12px;background:#f59e0b;color:#1c1917;text-decoration:none;font-weight:700}
+small{opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📊 Score do Investidor</h1>
+  <p>6 perguntas para medir sua prontidão para investir em temporada no litoral paulista.</p>
+  <div class="card" id="quiz"></div>
+  <div class="result" id="result"></div>
+  <small>Conteúdo educativo — não é recomendação de investimento.</small>
+</div>
+<script>
+const qs=[
+ ['Você já tem reserva de emergência?',[['Sim, 6+ meses',3],['Parcial',2],['Não',0]]],
+ ['Quanto pode aportar de entrada?',[['> R$ 150 mil',3],['R$ 50–150 mil',2],['< R$ 50 mil',1]]],
+ ['Já investe em algo hoje?', [['Sim, diversificado',3],['Só poupança/CDB',1],['Nada ainda',0]]],
+ ['Disponibilidade para gerir temporada?', [['Terceirizo com imobiliária',3],['Algumas horas/semana',2],['Nenhuma',0]]],
+ ['Horizonte de investimento?', [['> 10 anos',3],['5–10 anos',2],['< 5 anos',1]]],
+ ['Conhece o mercado do litoral?', [['Sim, acompanho dados',3],['Mais ou menos',1],['Estou começando',0]]]
+];
+let i=0,total=0;
+function render(){
+ if(i>=qs.length){finish();return;}
+ const q=qs[i];
+ document.getElementById('quiz').innerHTML='<h2>'+(i+1)+'. '+q[0]+'</h2>'+q[1].map(o=>'<button class="opt" onclick="pick('+o[1]+')">'+o[0]+'</button>').join('');
+}
+function pick(p){total+=p;i++;render();}
+function finish(){
+ document.getElementById('quiz').style.display='none';
+ const pct=Math.round(total/18*100);
+ let nivel,acao;
+ if(pct>=75){nivel='Investidor Pronto 🚀';acao='Simule o retorno real e veja relatórios de mercado.';}
+ else if(pct>=45){nivel='Quase lá 💪';acao='Estruture a entrada e estude as cidades com o Guia do Litoral.';}
+ else{nivel='Fase de preparação 🌱';acao='Comece pelo Simulador de Crédito e pelo Blog do Litoral.';}
+ const el=document.getElementById('result');
+ el.style.display='block';
+ el.innerHTML='<div class="gauge">'+pct+'/100</div><h2>'+nivel+'</h2><p>'+acao+'</p>'+
+ '<a class="btn" href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a> '+
+ '<a class="btn" href="https://praiadigital.github.io/simulador-credito/">Simulador de Crédito</a> '+
+ '<a class="btn" href="https://praiadigital.github.io/guia-litoral/">Guia do Litoral</a> '+
+ '<a class="btn" href="https://praiadigital.github.io/match-imovel/">Match Imóvel</a>';
+}
+render();
+</script>
+<hr style="margin:40px 0 20px;border:none;border-top:1px solid #334155">
+<nav style="font-size:.95em;text-align:center;padding:0 16px 32px;color:#94a3b8">
+<strong>Rede Praia Digital:</strong><br>
+<a style="color:#94a3b8" href="https://praia.digital/">Praia Digital</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/apps/">Todos os apps</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/ferramentas/">Ferramentas</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/calculadoras/">Calculadoras</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/simulador-credito/">Simulador de Crédito</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/area-anfitriao/">Área do Anfitrião</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/guia-litoral/">Guia do Litoral</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/blog-litoral/">Blog</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/investidores/">Investidores</a> ·
+<a style="color:#94a3b8" href="https://praiadigital.github.io/match-imovel/">Match Imóvel</a>
+</nav>
+</body>
+</html>
